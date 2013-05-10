@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "description": "An example module to show how to autogenerate a README.md-file. The code implements addition.",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/kesla/example.git"
+  },
+  "main": "addition.js",
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tap": "~0.4.0"
+  },
+  "licence": "MIT"
+}
