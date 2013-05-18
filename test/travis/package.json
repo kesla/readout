@@ -1,0 +1,7 @@
+{
+    "name": "node-module"
+  , "description": "Description of the module"
+  , "repository" : {
+      "url": "git://github.com/example/node-module.git"
+    }
+}
