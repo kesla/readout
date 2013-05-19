@@ -30,7 +30,9 @@ var fs = require('fs')
         , body: packageJson.description
       }
 
-      parsedReadme.order[1] = 'Installation'
+      if (parsedReadme.order.indexOf('Installation') === -1)
+        parsedReadme.order.splice(1, 0, 'Installation')
+
       parsedReadme.content['Installation'] = {
           head: '## Installation'
         , body: [
@@ -42,7 +44,14 @@ var fs = require('fs')
       }
 
       if (options.example) {
-        parsedReadme.order.push('Example')
+        if (parsedReadme.order.indexOf('Example') === -1) {
+          parsedReadme.order.splice(
+              parsedReadme.order.indexOf('Installation') + 1
+            , 0
+            , 'Example'
+          )
+        }
+
         parsedReadme.content['Example'] = {
             head: '## Example'
           , body: [
@@ -54,7 +63,8 @@ var fs = require('fs')
       }
 
       if (options.licence) {
-        parsedReadme.order.push('Licence')
+        if (parsedReadme.order.indexOf('Licence') === -1)
+          parsedReadme.order.push('Licence')
         parsedReadme.content['Licence'] = {
             head: '## Licence'
           , body: options.licence.trim()
