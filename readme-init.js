@@ -4,58 +4,67 @@ var fs = require('fs')
   , async = require('async')
   , mit = require('mit')
   , githubUrl = require('github-url')
+  , jsonmark = require('jsonmark')
 
-function createReadme(options) {
-  var packageJson = options.packageJson
-    , github = githubUrl(packageJson.repository)
-    , repo = github? github.user + '/' + github.project : false
-    , travis = ''
-    , output = []
+  , createReadme = function(options) {
+      var packageJson = options.packageJson
+        , github = githubUrl(packageJson.repository)
+        , repo = github? github.user + '/' + github.project : false
+        , travis = ''
+        , parsedReadme = options.baseReadme
+        , name = options.packageJson.name
 
-  if (repo && options.travis)
-    travis = [
-        '[![build status](https://secure.travis-ci.org/'
-      , repo
-      , '.png)]'
-      , '(http://travis-ci.org/'
-      , repo
-      , ')'
-    ].join('')
+      if (repo && options.travis)
+        travis = [
+            '[![build status](https://secure.travis-ci.org/'
+          , repo
+          , '.png)]'
+          , '(http://travis-ci.org/'
+          , repo
+          , ')'
+        ].join('')
 
-  output.push('# ' + options.packageJson.name + travis)
-  output.push(packageJson.description)
+      parsedReadme.order[0] = name + travis
+      parsedReadme.content[name + travis] = {
+          head: '# ' + name + travis
+        , body: packageJson.description
+      }
 
-  output.push('## Installation')
-  output.push(
-      [
-          '```'
-        , 'npm ' + (packageJson.preferGlobal? '-g ' : '') + 'install ' +
-            packageJson.name
-        , '```'
-      ].join('\n')
-  )
+      parsedReadme.order[1] = 'Installation'
+      parsedReadme.content['Installation'] = {
+          head: '## Installation'
+        , body: [
+              '```'
+            , 'npm ' + (packageJson.preferGlobal? '-g ' : '') + 'install ' +
+                packageJson.name
+            , '```'
+          ].join('\n')
+      }
 
-  if (options.example) {
-    output.push('## Example')
-    output.push(
-      [
-          '```javascript'
-        , options.example
-        , '```'
-      ].join('\n')
-    )
-  }
+      if (options.example) {
+        parsedReadme.order.push('Example')
+        parsedReadme.content['Example'] = {
+            head: '## Example'
+          , body: [
+                '```javascript'
+              , options.example
+              , '```'
+            ].join('\n')
+        }
+      }
 
-  if(options.licence) {
-    output.push('## Licence')
-    output.push(options.licence.trim())
-  }
+      if (options.licence) {
+        parsedReadme.order.push('Licence')
+        parsedReadme.content['Licence'] = {
+            head: '## Licence'
+          , body: options.licence.trim()
+        }
+      }
 
-  return output.join('\n\n') + '\n'
-}
-
-module.exports = function(dir, callback) {
-  async.parallel({
+      return jsonmark.stringify(parsedReadme) + '\n'
+    }
+  , importFiles = function(dir, callback) {
+      async.parallel({
           packageJson: function(done) {
             fs.readFile(path.join(dir, 'package.json'), 'utf8', function(err, packageJson) {
               if (err)
@@ -81,12 +90,14 @@ module.exports = function(dir, callback) {
         , licence: function(done) {
             fs.readdir(dir, function(err, files) {
               var fileName
+
               if (err)
                 done(err)
               else {
                 fileName = files.filter(function(fileName) {
-                  return path.basename(fileName, 'md').toLowerCase() === 'licence'
+                  return path.basename(fileName, '.md').toLowerCase() === 'licence'
                 })[0]
+
                 if (!fileName)
                   done(null, null)
                 else
@@ -94,13 +105,41 @@ module.exports = function(dir, callback) {
               }
             })
           }
-      }
-    , function(err, obj) {
-        if (err)
-          callback(err)
-        else
-          callback(null, createReadme(obj))
-      }
-  )
+        , baseReadme: function(done) {
+            fs.readdir(dir, function(err, files) {
+              var fileName
 
+              if(err)
+                done(err)
+              else {
+                fileName = files.filter(function(fileName) {
+                  return path.basename(fileName, '.md').toLowerCase() === 'readme'
+                })[0]
+
+                if (!fileName)
+                  done(null, {
+                      order: []
+                    , content: {}
+                  })
+                else
+                  fs.readFile(path.join(dir, fileName), 'utf8', function(err, file) {
+                    if (err)
+                      done(err)
+                    else
+                      done(null, jsonmark.parse(file))
+                  })
+              }
+            })
+          }
+
+      }, callback)
+    }
+
+module.exports = function(dir, callback) {
+  importFiles(dir, function(err, options) {
+    if (err)
+      callback(err)
+    else
+      callback(null, createReadme(options))
+  })
 }
