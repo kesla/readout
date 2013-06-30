@@ -1,15 +1,15 @@
 {
-  "name": "readme-init",
+  "name": "readout",
   "author": "David Björklund <david.bjorklund@gmail.com> (http://davidbjorklund.se)",
   "description": "A simple tool to automagically create and update a Readme.md file",
   "version": "0.0.0",
   "repository": {
-    "url": "git://github.com/kesla/readme-init.git"
+    "url": "git://github.com/kesla/readout.git"
   },
   "bin": {
-    "update-readme": "./cmd.js"
+    "readout": "./cmd.js"
   },
-  "main": "readme-init.js",
+  "main": "readout.js",
   "scripts": {
     "test": "tap test/*.js"
   },

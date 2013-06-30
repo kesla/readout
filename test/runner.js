@@ -2,7 +2,7 @@ var fs = require('fs')
   , path = require('path')
 
   , test = require('tap').test
-  , readmeCreator = require('../readme-init.js')
+  , readmeCreator = require('../readout.js')
 
   , runTest = function(name) {
       var dir = path.join(__dirname, name)

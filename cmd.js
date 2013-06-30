@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var createReadme = require('./readme-init')
+var createReadme = require('./readout')
 
 createReadme(process.cwd(), function(err, readme) {
   if (err)

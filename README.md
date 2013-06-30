@@ -1,11 +1,11 @@
-# readme-init
+# readout
 
 A simple tool to automagically create and update a Readme.md file
 
 ## Installation
 
 ```
-npm -g install readme-init
+npm install readout
 ```
 
 ## Licence
