@@ -93,7 +93,16 @@ var fs = require('fs')
               if (!exists) {
                 done(null, false)
               } else {
-                fs.readFile(path.join(dir, 'example.js'), 'utf8', done)
+                fs.readFile(
+                    path.join(dir, 'example.js')
+                  , 'utf8'
+                  , function(err, file) {
+                      if (err)
+                        done(err)
+                      else
+                        done(err, file.trim())
+                    }
+                )
               }
             })
           }
