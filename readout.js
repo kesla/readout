@@ -6,6 +6,8 @@ var fs = require('fs')
   , githubUrl = require('github-url')
   , jsonmark = require('jsonmark')
 
+  , importFiles = require('./lib/import-files')
+
   , createReadme = function(options) {
       var packageJson = options.packageJson
         , github = githubUrl(packageJson.repository)
@@ -72,86 +74,6 @@ var fs = require('fs')
       }
 
       return jsonmark.stringify(parsedReadme) + '\n'
-    }
-  , importFiles = function(dir, callback) {
-      async.parallel({
-          packageJson: function(done) {
-            fs.readFile(path.join(dir, 'package.json'), 'utf8', function(err, packageJson) {
-              if (err)
-                done(err)
-              else
-                done(null, JSON.parse(packageJson))
-            })
-          }
-        , travis: function(done) {
-            fs.exists(path.join(dir, '.travis.yml'), function(exists) {
-              done(null, exists)
-            })
-          }
-        , example: function(done) {
-            fs.exists(path.join(dir, 'example.js'), function(exists) {
-              if (!exists) {
-                done(null, false)
-              } else {
-                fs.readFile(
-                    path.join(dir, 'example.js')
-                  , 'utf8'
-                  , function(err, file) {
-                      if (err)
-                        done(err)
-                      else
-                        done(err, file.trim())
-                    }
-                )
-              }
-            })
-          }
-        , licence: function(done) {
-            fs.readdir(dir, function(err, files) {
-              var fileName
-
-              if (err)
-                done(err)
-              else {
-                fileName = files.filter(function(fileName) {
-                  return path.basename(fileName, '.md').toLowerCase() === 'licence'
-                })[0]
-
-                if (!fileName)
-                  done(null, null)
-                else
-                  fs.readFile(path.join(dir, fileName), 'utf8', done)
-              }
-            })
-          }
-        , baseReadme: function(done) {
-            fs.readdir(dir, function(err, files) {
-              var fileName
-
-              if(err)
-                done(err)
-              else {
-                fileName = files.filter(function(fileName) {
-                  return path.basename(fileName, '.md').toLowerCase() === 'readme'
-                })[0]
-
-                if (!fileName)
-                  done(null, {
-                      order: []
-                    , content: {}
-                  })
-                else
-                  fs.readFile(path.join(dir, fileName), 'utf8', function(err, file) {
-                    if (err)
-                      done(err)
-                    else
-                      done(null, jsonmark.parse(file))
-                  })
-              }
-            })
-          }
-
-      }, callback)
     }
 
 module.exports = function(dir, callback) {
