@@ -5,7 +5,7 @@ A simple tool to automagically create and update a Readme.md file
 ## Installation
 
 ```
-npm install readout
+npm -g install readout
 ```
 
 ## Licence
