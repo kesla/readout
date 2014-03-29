@@ -2,7 +2,6 @@ var fs = require('fs')
   , path = require('path')
 
   , async = require('async')
-  , mit = require('mit')
   , githubUrl = require('github-url')
   , jsonmark = require('jsonmark')
 
