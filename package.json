@@ -14,10 +14,10 @@
     "test": "tap test/*.js"
   },
   "dependencies": {
-    "github-url": "~1.0.0",
-    "mit": "0.0.0",
+    "github-url": "^1.1.0",
+    "mit": "^0.1.2",
     "jsonmark": "~0.0.0",
-    "async": "~0.2.9"
+    "async": "^0.4.0"
   },
   "devDependencies": {
     "tap": "~0.4.0"
