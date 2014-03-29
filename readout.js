@@ -53,11 +53,41 @@ var fs = require('fs')
           )
         }
 
+        if (parsedReadme.order.indexOf('Input') === -1) {
+          parsedReadme.order.splice(
+              parsedReadme.order.indexOf('Example') + 1
+            , 0
+            , 'Input'
+          )
+        }
+
+        if (parsedReadme.order.indexOf('Output') === -1) {
+          parsedReadme.order.splice(
+              parsedReadme.order.indexOf('Input') + 1
+            , 0
+            , 'Output'
+          )
+        }
+
         parsedReadme.content['Example'] = {
             head: '## Example'
+          , body: ''
+        }
+
+        parsedReadme.content['Input'] = {
+            head: '### Input'
           , body: [
                 '```javascript'
-              , options.example
+              , options.example.input
+              , '```'
+            ].join('\n')
+        }
+
+        parsedReadme.content['Output'] = {
+            head: '### Output'
+          , body: [
+                '```'
+              , options.example.output
               , '```'
             ].join('\n')
         }

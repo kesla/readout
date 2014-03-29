@@ -14,6 +14,8 @@ npm install node-module
 
 ## Example
 
+### Input
+
 ```javascript
 function hello(str) {
   console.log('Hello,' + str + '!')
@@ -21,3 +23,10 @@ function hello(str) {
 
 hello('world')
 ```
+
+### Output
+
+```
+Hello,world!
+```
+

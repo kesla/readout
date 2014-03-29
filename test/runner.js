@@ -11,7 +11,7 @@ var fs = require('fs')
       test(name, function(t) {
         readmeCreator(dir, function(err, actual) {
           t.notOk(err, 'readmeCreator() should not error')
-          t.equal(actual, expected, 'should create a Readme.md')
+          t.equal(actual.trim(), expected.trim(), 'should create a Readme.md')
           t.end()
         })
       })
