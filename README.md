@@ -2,6 +2,10 @@
 
 A simple tool to automagically create and update a Readme.md file
 
+[![NPM](https://nodei.co/npm/readout.png?downloads&stars)](https://nodei.co/npm/readout/)
+
+[![NPM](https://nodei.co/npm-dl/readout.png)](https://nodei.co/npm/readout/)
+
 ## Installation
 
 ```

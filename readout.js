@@ -28,7 +28,11 @@ var fs = require('fs')
       parsedReadme.order[0] = name + travis
       parsedReadme.content[name + travis] = {
           head: '# ' + name + travis
-        , body: packageJson.description
+        , body: [
+              packageJson.description
+            , '[![NPM](https://nodei.co/npm/' + name + '.png?downloads&stars)](https://nodei.co/npm/' + name + '/)'
+            , '[![NPM](https://nodei.co/npm-dl/' + name + '.png)](https://nodei.co/npm/' + name + '/)'
+          ].join('\n\n')
       }
 
       if (parsedReadme.order.indexOf('Installation') === -1)
