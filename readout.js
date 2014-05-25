@@ -19,7 +19,7 @@ var fs = require('fs')
         travis = [
             '[![build status](https://secure.travis-ci.org/'
           , repo
-          , '.png)]'
+          , '.svg)]'
           , '(http://travis-ci.org/'
           , repo
           , ')'
