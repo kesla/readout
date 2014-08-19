@@ -1,4 +1,4 @@
-# node-module[![build status](https://secure.travis-ci.org/example/node-module.png)](http://travis-ci.org/example/node-module)
+# node-module[![build status](https://secure.travis-ci.org/example/node-module.svg)](http://travis-ci.org/example/node-module)
 
 Description of the module
 
