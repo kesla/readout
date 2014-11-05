@@ -22,7 +22,7 @@ console.log('Not finished yet')
 
 Another header that should just be kept as is
 
-## Licence
+## License
 
 This is a licence statement
 

@@ -38,7 +38,7 @@ Hello,world!
 
 Another header that should just be kept as is
 
-## Licence
+## License
 
 Copyright (c) 2013 Donald Duck
 

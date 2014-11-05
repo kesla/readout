@@ -97,12 +97,12 @@ var fs = require('fs')
         }
       }
 
-      if (options.licence) {
-        if (parsedReadme.order.indexOf('Licence') === -1)
-          parsedReadme.order.push('Licence')
-        parsedReadme.content['Licence'] = {
-            head: '## Licence'
-          , body: options.licence.trim()
+      if (options.license) {
+        if (parsedReadme.order.indexOf('License') === -1)
+          parsedReadme.order.push('License')
+        parsedReadme.content['License'] = {
+            head: '## License'
+          , body: options.license.trim()
         }
       }
 

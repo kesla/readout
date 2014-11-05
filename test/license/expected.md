@@ -12,7 +12,7 @@ Description of the module
 npm install node-module
 ```
 
-## Licence
+## License
 
 Copyright (c) 2013 Donald Duck
 
