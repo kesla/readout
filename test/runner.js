@@ -1,7 +1,7 @@
 var fs = require('fs')
   , path = require('path')
 
-  , test = require('tap').test
+  , test = require('tape')
   , readmeCreator = require('../readout.js')
 
   , runTest = function(name) {

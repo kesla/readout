@@ -11,7 +11,7 @@
   },
   "main": "readout.js",
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tape test/*.js"
   },
   "dependencies": {
     "github-url": "^1.1.0",
@@ -19,7 +19,7 @@
     "async": "^0.4.0"
   },
   "devDependencies": {
-    "tap": "~0.4.0"
+    "tape": "^3.0.1"
   },
   "licence": "MIT",
   "preferGlobal": true
