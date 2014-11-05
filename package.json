@@ -2,7 +2,7 @@
   "name": "readout",
   "author": "David Björklund <david.bjorklund@gmail.com> (http://davidbjorklund.se)",
   "description": "A simple tool to automagically create and update a Readme.md file",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "repository": {
     "url": "git://github.com/kesla/readout.git"
   },
